@@ -31,13 +31,14 @@ jobs:
       - name: Install backend dependencies
         working-directory: backend
         run: |
+          sudo apt install -y python3
           python3 -m pip install --upgrade pip
           python3 -m pip install .
 
       - name: Smoke test backend
         working-directory: backend
         run: |
-          python - <<'PY'
+          python3 - <<'PY'
           import app
           print(app.app.url_map)
           PY
