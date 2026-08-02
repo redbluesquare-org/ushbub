@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted, raspberrypi]
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v4
