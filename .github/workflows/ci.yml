@@ -28,10 +28,15 @@ jobs:
         working-directory: ushbub-store
         run: npm run build
 
+      - name: Ensure python3-pip is installed
+        apt:
+          name: python3-pip
+          state: present
+          update_cache: yes
+
       - name: Install backend dependencies
         working-directory: backend
         run: |
-          apt install -y python3-pip
           python3 -m pip install --upgrade pip
           python3 -m pip install .
 
