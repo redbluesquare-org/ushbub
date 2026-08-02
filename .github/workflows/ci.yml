@@ -28,6 +28,13 @@ jobs:
         working-directory: ushbub-store
         run: npm run build
 
+      - name: Install the virtual environment
+        working-directory: backend
+        run: python3 -m venv .venv
+
+      - name: Activate the virtual environment
+        working-directory: backend
+        run: source .venv/bin/activate
 
       - name: Install backend dependencies
         working-directory: backend
