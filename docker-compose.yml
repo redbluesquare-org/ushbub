@@ -1,0 +1,47 @@
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ushbub-api
+    restart: unless-stopped
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8000
+    ports:
+      - "8000:8000"
+    networks:
+      - ushbub-net
+
+  web:
+    build:
+      context: ./ushbub-store
+      dockerfile: Dockerfile
+    container_name: ushbub-web
+    restart: unless-stopped
+    environment:
+      API_URL: https://api.ushbub.co.uk
+    depends_on:
+      - api
+    networks:
+      - ushbub-net
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: ushbub-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/conf:/etc/nginx/conf.d:ro
+      - ./docker/nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - web
+      - api
+    networks:
+      - ushbub-net
+
+networks:
+  ushbub-net:
+    driver: bridge

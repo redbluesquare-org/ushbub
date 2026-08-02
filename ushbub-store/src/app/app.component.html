@@ -1,0 +1,61 @@
+<main class="page-shell">
+  <header class="topbar">
+    <div class="brand-block">
+      <img src="assets/logo_ushbub.png" alt="Ushbub logo" class="brand-logo" />
+      <div>
+        <p class="brand-kicker">Ushbub</p>
+        <h1>{{ title }}</h1>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="status-pill">{{ apiStatus }}</span>
+      <button class="cart-pill" type="button">Cart ({{ cartCount }})</button>
+    </div>
+  </header>
+
+  <section class="hero-card">
+    <div>
+      <p class="hero-eyebrow">New season • Curated picks</p>
+      <h2>{{ subtitle }}</h2>
+      <p class="hero-copy">Shop modern essentials with a polished experience built for fast browsing and seamless checkout.</p>
+      <div class="hero-actions">
+        <button class="primary-btn" type="button">Explore catalog</button>
+        <button class="secondary-btn" type="button">Join wishlist</button>
+      </div>
+    </div>
+    <div class="hero-metric">
+      <p>Live products</p>
+      <strong>{{ products.length }}</strong>
+      <span>Ready for checkout</span>
+    </div>
+  </section>
+
+  <section class="products-section">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">Popular now</p>
+        <h3>Trending products</h3>
+      </div>
+      <a href="#" class="text-link">View all</a>
+    </div>
+
+    <div class="product-grid">
+      @for (product of products; track product.id) {
+        <article class="product-card">
+          <img [src]="product.image" [alt]="product.name" />
+          <div class="product-content">
+            <p class="product-category">{{ product.category }}</p>
+            <h4>{{ product.name }}</h4>
+            <p>{{ product.description }}</p>
+            <div class="product-footer">
+              <span>${{ product.price }}</span>
+              <button type="button" (click)="addToCart()">Add to cart</button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+</main>
+
+<router-outlet />
