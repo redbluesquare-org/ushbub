@@ -32,13 +32,10 @@ jobs:
         working-directory: backend
         run: python -m venv .venv
 
-      - name: Activate the virtual environment
-        working-directory: backend
-        run: source .venv/bin/activate
-
-      - name: Install backend dependencies
+      - name: Activate the virtual environment and Install backend dependencies
         working-directory: backend
         run: |
+          source .venv/bin/activate
           python -m pip install --upgrade pip
           python -m pip install .
 
