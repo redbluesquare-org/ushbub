@@ -42,6 +42,7 @@ jobs:
       - name: Smoke test backend
         working-directory: backend
         run: |
+          source .venv/bin/activate
           python - <<'PY'
           import app
           print(app.app.url_map)
