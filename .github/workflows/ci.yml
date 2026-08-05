@@ -30,7 +30,7 @@ jobs:
 
       - name: Install the virtual environment
         working-directory: backend
-        run: python3 -m venv .venv
+        run: python -m venv .venv
 
       - name: Activate the virtual environment
         working-directory: backend
@@ -39,13 +39,13 @@ jobs:
       - name: Install backend dependencies
         working-directory: backend
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install .
+          python -m pip install --upgrade pip
+          python -m pip install .
 
       - name: Smoke test backend
         working-directory: backend
         run: |
-          python3 - <<'PY'
+          python - <<'PY'
           import app
           print(app.app.url_map)
           PY
