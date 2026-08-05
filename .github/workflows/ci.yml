@@ -22,7 +22,7 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: ushbub-store
-        run: npm ci --legacy-peer-deps
+        run: npm install --legacy-peer-deps
 
       - name: Build frontend
         working-directory: ushbub-store
