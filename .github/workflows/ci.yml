@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,26 +22,27 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: ushbub-store
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Build frontend
         working-directory: ushbub-store
         run: npm run build
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+      - name: Install the virtual environment
+        working-directory: backend
+        run: python -m venv .venv
 
-      - name: Install backend dependencies
+      - name: Activate the virtual environment and Install backend dependencies
         working-directory: backend
         run: |
+          source .venv/bin/activate
           python -m pip install --upgrade pip
-          pip install .
+          python -m pip install .
 
       - name: Smoke test backend
         working-directory: backend
         run: |
+          source .venv/bin/activate
           python - <<'PY'
           import app
           print(app.app.url_map)
